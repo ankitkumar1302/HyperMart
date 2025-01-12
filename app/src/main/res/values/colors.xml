@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#FFC5C5C5</color>
     <color name="orange">#FFFDAA5D</color>
+    <color name="search_bar_background">#FFEFF1F3</color>">
+
+
 </resources>
