@@ -21,13 +21,16 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -52,7 +55,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 import com.isodev.hypermart.ui.theme.HyperMartTheme
 import kotlin.math.absoluteValue
@@ -81,9 +87,10 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Home(modifier: Modifier = Modifier) {
-    Column (modifier = modifier){
+    Column(modifier = modifier) {
         SearchBarAndLocation()
         CustomPager()
+        CategoriesLazyRow()
     }
 }
 
@@ -295,12 +302,14 @@ fun SearchBarAndLocation() {
                 )
             },
             trailingIcon = {
-                Row (verticalAlignment = Alignment.CenterVertically){
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     Image(painter = painterResource(R.drawable.vector_3), contentDescription = "")
                     Image(
                         painter = painterResource(R.drawable.mic__1__1),
                         contentDescription = null,
-                        modifier = Modifier.size(24.dp).padding(start = 4.dp)
+                        modifier = Modifier
+                            .size(24.dp)
+                            .padding(start = 4.dp)
                     )
                 }
             },
@@ -321,11 +330,92 @@ fun SearchBarAndLocation() {
 }
 
 
-
 @Composable
 fun CategoriesLazyRow(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(top = 16.dp, bottom = 16.dp, start = 16.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Categories",
+                color = Color(0xFF303733),
+                fontWeight = FontWeight.Bold
+            )
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                contentDescription = null,
+                tint = Color.Gray,
+                modifier = Modifier.size(24.dp)
+            )
+        }
 
+        Spacer(modifier = Modifier.height(8.dp))
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            items(6) { index ->
+                CategoryItem(
+                    image = listOf(
+                        R.drawable.ic_vegetables,
+                        R.drawable.vector__1_,
+                        R.drawable.washing_machine_1,
+                        R.drawable.ic_vegetables,
+                        R.drawable.vector__1_,
+                        R.drawable.washing_machine_1,
+                    )[index % 6],
+                    name = listOf(
+                        "Groceries", "Appliances", "Fashion", "Groceries", "Appliances", "Fashion"
+                    )[index % 6],
+                    backgroundColor = listOf(
+                        Color(0xFF4AB7B6),
+                        Color(0xFF4B9DCB),
+                        Color(0xFFAF558B),
+                        Color(0xFFA187D9),
+                        Color(0xFF4AB7B6),
+                        Color(0xFF4B9DCB)
+                    )[index % 6]
+                )
+            }
+        }
+    }
 }
+
+@Composable
+fun CategoryItem(
+    image: Int,
+    name: String,
+    backgroundColor: Color,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .size(width = 90.dp, height = 96.dp)
+            .background(color = backgroundColor, shape = RoundedCornerShape(16.dp))
+            .padding(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Image(
+            painter = painterResource(image),
+            contentDescription = null,
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = name,
+            color = Color.White,
+            textAlign = TextAlign.Center,
+            fontSize = 12.sp
+        )
+    }
+}
+
 
 @Composable
 fun PreviousOrder(modifier: Modifier = Modifier) {
