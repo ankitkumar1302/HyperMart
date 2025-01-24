@@ -9,7 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#FFC5C5C5</color>
     <color name="orange">#FFFDAA5D</color>
+    <color name="button_red">#FFEA7173</color>">
+    <color name="button_green">#FF4AB7B6</color>">
+    <color name="text_green">#FF14AB87</color>">
     <color name="search_bar_background">#FFEFF1F3</color>">
-
-
+    <color name="product_name_color">#FF303733</color>">
 </resources>

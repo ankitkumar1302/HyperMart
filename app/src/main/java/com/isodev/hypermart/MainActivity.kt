@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,7 +22,10 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
@@ -30,9 +34,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -50,11 +56,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -87,11 +96,29 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Home(modifier: Modifier = Modifier) {
-    Column(modifier = modifier) {
-        SearchBarAndLocation()
-        CustomPager()
-        CategoriesLazyRow()
+    LazyColumn(
+        modifier = modifier
+    ) {
+        item {
+            SearchBarAndLocation()
+
+        }
+        item {
+            CustomPager()
+
+        }
+        item {
+            CategoriesLazyRow()
+
+        }
+        item {
+            PreviousOrder()
+        }
+        item {
+            PopularDealsGrid()
+        }
     }
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -419,10 +446,326 @@ fun CategoryItem(
 
 @Composable
 fun PreviousOrder(modifier: Modifier = Modifier) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = "Previous Order",
+            color = Color(0xFF303733),
+            fontWeight = FontWeight.Bold,
+        )
+        Icon(
+            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+            contentDescription = null,
+            tint = Color.Gray,
+            modifier = Modifier.size(24.dp)
+        )
+    }
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .shadow(3.dp, shape = RoundedCornerShape(16.dp))
+            .background(
+                color = Color.White,
+                shape = RoundedCornerShape(16.dp)
+            ),
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(end = 8.dp)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Delivered",
+                        color = Color(0xFF4CAF50),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 10.sp
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "On Wed, 27 Jul 2022",
+                        color = Color.Gray,
+                        fontSize = 10.sp
+                    )
+                }
 
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color(0xFFF7F7F7), shape = RoundedCornerShape(10.dp))
+                        .padding(8.dp)
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.x),
+                            contentDescription = null,
+                            modifier = Modifier.size(24.dp, 42.dp)
+                        )
+                        Image(
+                            painter = painterResource(R.drawable.y),
+                            contentDescription = null,
+                            modifier = Modifier.size(42.dp, 43.dp)
+                        )
+                        Image(
+                            painter = painterResource(R.drawable.z),
+                            contentDescription = null,
+                            modifier = Modifier.size(30.dp, 42.dp)
+                        )
+                        Text(
+                            text = "+5 ",
+                            color = Color.Gray,
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        Text(
+                            text = "Order ID : #28292999",
+                            color = Color.Gray,
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "Final Total : ₹ 123",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp
+                        )
+                    }
+
+                    Button(
+                        onClick = { /* TODO: Handle click */ },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFF73C2C2),
+                            contentColor = Color.White
+                        ),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text(text = "Order Again")
+                    }
+                }
+            }
+
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .width(40.dp)
+                    .background(
+                        color = Color(0xFFF28B82),
+                        shape = RoundedCornerShape(topEnd = 12.dp, bottomEnd = 12.dp)
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Order Again & Get Flat 10% OFF",
+                    color = Color.White,
+                    textAlign = TextAlign.Center,
+                    fontSize = 10.sp,
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .rotate(90f)
+                )
+            }
+        }
+    }
 }
 
 @Composable
-fun PopularDealsLazyGrid(modifier: Modifier = Modifier) {
+fun PopularDealsGrid(modifier: Modifier = Modifier) {
+    val items = listOf(
+        Product("Strawberries", "₹10", 4.8, R.drawable.grid_1, 1),
+        Product("Fried Chips", "₹12", 4.8, R.drawable.grid_2, 2),
+        Product("Moder Chair", "₹3599", 4.8, R.drawable.grid_3, 3),
+        Product("LG washing machine", "₹45,999", 4.9, R.drawable.grid_4, 4)
+    )
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = "Popular Deals",
+            color = Color(0xFF303733),
+            fontWeight = FontWeight.Bold
+        )
+        Icon(
+            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+            contentDescription = null,
+            tint = Color.Gray,
+            modifier = Modifier.size(24.dp)
+        )
+    }
 
+    Box(
+        modifier = modifier
+            .height(300.dp)
+            .padding(8.dp)
+    ) {
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            modifier = Modifier.fillMaxSize(),
+            content = {
+                items(items.size) { index ->
+                    ProductCard(items[index])
+                }
+            }
+        )
+    }
 }
+
+
+@Composable
+fun ProductCard(product: Product) {
+    Card(
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(12.dp),
+        elevation = CardDefaults.cardElevation(2.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .background(Color.White)
+                .height(230.dp)
+                .padding(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(130.dp)
+                    .background(Color.White),
+                contentAlignment = Alignment.TopEnd
+            ) {
+                Image(
+                    painter = painterResource(product.image),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(90.dp, 94.dp)
+                        .align(Alignment.Center)
+                )
+            }
+            Text(
+                text = product.name,
+                style = TextStyle(
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = colorResource(R.color.product_name_color)
+                )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 8.dp, end = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = product.price,
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        color = Color.Black,
+                        fontWeight = FontWeight.Medium
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = product.rating.toString(),
+                        style = TextStyle(
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFFFFD700)
+                        )
+                    )
+                    Icon(
+                        painter = painterResource(android.R.drawable.star_on),
+                        contentDescription = null,
+                        tint = Color(0xFFFFD700),
+                        modifier = Modifier.size(16.dp)
+                    )
+                }
+            }
+
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 8.dp, end = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                IconButton(
+                    onClick = {},
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(12.dp))
+                        .size(36.dp)
+                        .background(color = colorResource(R.color.button_red))
+                ) {
+                    Text(
+                        text = "-",
+                        style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold),
+                        color = Color.White
+                    )
+                }
+                Text(
+                    text = "2",
+                    style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold),
+                    modifier = Modifier.align(Alignment.CenterVertically),
+                    color = colorResource(R.color.text_green)
+                )
+
+                IconButton(
+                    onClick = { /* Decrement action */ },
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(12.dp))
+                        .size(36.dp)
+                        .background(color = colorResource(R.color.button_green))
+                ) {
+                    Text(
+                        text = "+",
+                        style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.SemiBold),
+                        color = Color.White
+                    )
+                }
+            }
+        }
+    }
+}
+
+data class Product(
+    val name: String,
+    val price: String,
+    val rating: Double,
+    val image: Int,
+    val id: Int
+)
