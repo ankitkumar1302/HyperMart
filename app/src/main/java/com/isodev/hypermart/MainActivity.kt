@@ -481,26 +481,25 @@ fun PreviousOrder(modifier: Modifier = Modifier) {
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(end = 8.dp)
+                    .padding(16.dp)
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
+                Column(
+                    horizontalAlignment = Alignment.Start
                 ) {
                     Text(
                         text = "Delivered",
-                        color = Color(0xFF4CAF50),
+                        color = Color(0xFF14AB87),
                         fontWeight = FontWeight.Bold,
                         fontSize = 10.sp
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = "On Wed, 27 Jul 2022",
-                        color = Color.Gray,
+                        color = Color(0xFF303733),
                         fontSize = 10.sp
                     )
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(6.dp))
 
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -510,7 +509,8 @@ fun PreviousOrder(modifier: Modifier = Modifier) {
                         .padding(8.dp)
                 ) {
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(32.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Image(
@@ -529,13 +529,13 @@ fun PreviousOrder(modifier: Modifier = Modifier) {
                             modifier = Modifier.size(30.dp, 42.dp)
                         )
                         Text(
-                            text = "+5 ",
-                            color = Color.Gray,
+                            text = "+5",
+                            color = Color(0xFF303733),
                         )
                     }
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(6.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -545,7 +545,7 @@ fun PreviousOrder(modifier: Modifier = Modifier) {
                     Column {
                         Text(
                             text = "Order ID : #28292999",
-                            color = Color.Gray,
+                            color = Color(0xFF303733),
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -580,14 +580,15 @@ fun PreviousOrder(modifier: Modifier = Modifier) {
                     ),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "Order Again & Get Flat 10% OFF",
-                    color = Color.White,
-                    textAlign = TextAlign.Center,
-                    fontSize = 10.sp,
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .rotate(90f)
+                Image(
+                    painter = painterResource(R.drawable.order_again_text),
+                    contentDescription = "",
+                    modifier = Modifier.padding(
+                        top = 32.dp,
+                        bottom = 32.dp,
+                        start = 8.dp,
+                        end = 8.dp
+                    )
                 )
             }
         }
